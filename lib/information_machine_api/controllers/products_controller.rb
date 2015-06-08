@@ -107,53 +107,6 @@ module InformationMachineApi
       response.body
     end
 
-    # Get alternatives for a specified product. Note: Must specify both product ID and ID for desired alternative type. See “Lookup” section, “product_alternative_type” for list of all possible alternative types.
-    # @param [String] product_id Required parameter: TODO: type description here
-    # @param [String] alternative_type_id Required parameter: TODO: type description here
-    # @return GetProductAlternativesWrapper response from the API call
-    def products_get_product_alternatives product_id, alternative_type_id
-      # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
-
-      # prepare query string for API call
-      query_builder << "/v1/products/{product_id}/alternatives/{alternative_type_id}"
-
-      # process optional query parameters
-      query_builder = APIHelper.append_url_with_template_parameters query_builder, {
-        "product_id" => product_id,
-        "alternative_type_id" => alternative_type_id,
-      }
-
-      # process optional query parameters
-      query_builder = APIHelper.append_url_with_query_parameters query_builder, {
-        "client_id" => @client_id,
-        "client_secret" => @client_secret,
-      }
-
-      # validate and preprocess url
-      query_url = APIHelper.clean_url query_builder
-
-      # prepare headers
-      headers = {
-        "user-agent" => "IAMDATA V1",
-        "accept" => "application/json"
-      }
-
-      # invoke the API call request to fetch the response
-      response = Unirest.get query_url, headers:headers
-
-      # Error handling using HTTP status codes
-      if response.code == 404
-        raise APIException.new "Not found", 404
-      elsif response.code == 401
-        raise APIException.new "Unauthorized", 401
-      elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
-      end
-
-      response.body
-    end
-
     # Get all purchases a user has made for a product by specifying the associated product ID.
     # @param [String] product_id Required parameter: TODO: type description here
     # @param [Numeric] page Optional parameter: TODO: type description here

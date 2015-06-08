@@ -7,7 +7,6 @@ require 'unirest'
 require 'information_machine_api/api_helper.rb'
 require 'information_machine_api/api_exception.rb'
 require 'information_machine_api/configuration.rb'
-require 'information_machine_api/jsonable.rb'
 
 # Controllers
 require 'information_machine_api/controllers/lookup_controller.rb'
