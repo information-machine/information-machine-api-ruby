@@ -52,7 +52,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Register a new user by specifying "email", "zip" and "user_id". The “user_id” is mandatory and it represents the identifier you will use to identify your user in the IM API infrastructure.Note: The following characters are restricted within "user_id" string ---&gt; { '/', '^', '[',  '\\', 'w', '.', ']', '+', '$', '/' }
+    # Register a new user by specifying "email", "zip" and "user_id". The "user_id" is mandatory and it represents the identifier you will use to identify your user in the IM API infrastructure.Note: The following characters are restricted within "user_id" string ---&gt; { '/', '^', '[',  '\\', 'w', '.', ']', '+', '$', '/' }
     # @param [RegisterUserRequest] payload Required parameter: TODO: type description here
     # @return CreateUserWrapper response from the API call
     def user_management_create_user payload
@@ -138,7 +138,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Get user associated with your account specifying “id” of a user.
+    # Get user associated with your account specifying "id" of a user.
     # @param [String] id Required parameter: TODO: type description here
     # @return GetSingleUserWrapper response from the API call
     def user_management_get_single_user id

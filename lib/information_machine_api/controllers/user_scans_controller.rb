@@ -58,7 +58,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Upload a receipt with unique ID (“receipt_id”) and associate it to a specified user using “user_id” parameter. Note: Uploaded receipt image should be Base 64 encoded. For testing purposes you can find our Base 64 encoded logo here: http://api.iamdata.co/images/base64/encoded_logo.txt
+    # Upload a receipt with unique ID ("receipt_id") and associate it to a specified user using "user_id" parameter. Note: Uploaded receipt image should be Base 64 encoded. For testing purposes you can find our Base 64 encoded logo here: http://api.iamdata.co/images/base64/encoded_logo.txt
     # @param [UploadReceiptRequest] payload Required parameter: TODO: type description here
     # @param [String] user_id Required parameter: TODO: type description here
     # @return UploadReceiptWrapper response from the API call

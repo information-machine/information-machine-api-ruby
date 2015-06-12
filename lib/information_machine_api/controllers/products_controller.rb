@@ -156,7 +156,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Get prices (from available stores) for specified product IDs. Note: It is possible to query 20 product IDs per each request. Please separate IDs with commas (e.g.: “325365, 89300”).
+    # Get prices (from available stores) for specified product IDs. Note: It is possible to query 20 product IDs per each request. Please separate IDs with commas (e.g.: "325365, 89300").
     # @param [String] product_ids Required parameter: TODO: type description here
     # @return GetProductPricesWrapper response from the API call
     def products_get_product_prices product_ids
@@ -197,7 +197,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Get product alternatives for a specified alternative type (e.g.: “type_id: 7” will display alternatives of the “general” type) for a list of products specified by product IDs. Note: See “Lookup” section, “product_alternative_type” for list of all possible alternative types. List of product ids must not contain more than 20 ids or else Bad Request will be returned.
+    # Get product alternatives for a specified alternative type (e.g.: "type_id: 7" will display alternatives of the "general" type) for a list of products specified by product IDs. Note: See "Lookup" section, "product_alternative_type" for list of all possible alternative types. List of product ids must not contain more than 20 ids or else Bad Request will be returned.
     # @param [String] product_ids Required parameter: TODO: type description here
     # @param [String] type_id Optional parameter: TODO: type description here
     # @return GetProductsAlternativesWrapper response from the API call
@@ -242,7 +242,7 @@ module InformationMachineApi
       response.body
     end
 
-    # Get full history of products purchased by a specified user at connected stores, must define “user_id".
+    # Get full history of products purchased by a specified user at connected stores, must define "user_id".
     # @param [String] user_id Required parameter: TODO: type description here
     # @param [Numeric] page Optional parameter: TODO: type description here
     # @param [Numeric] per_page Optional parameter: default:10, max:50
