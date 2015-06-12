@@ -1,8 +1,6 @@
 require_relative 'lib/information_machine_api'
 require './api_test_exception.rb'
 
-#Dir["/lib/*.rb"].each {|file| require file }
-
 def wait_for_scrape_to_finish user_stores_controller, user_identifier, store_id
 
     # try to see if the users credentials are valid
