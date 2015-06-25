@@ -172,10 +172,10 @@ module InformationMachineApi
       response = Unirest.get query_url, headers:headers
 
       # Error handling using HTTP status codes
-      if response.code == 400
-        raise APIException.new "Bad request", 400
-      elsif response.code == 401
+      if response.code == 401
         raise APIException.new "Unauthorized", 401
+      elsif response.code == 404
+        raise APIException.new "Not Found", 404
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
         raise APIException.new "HTTP Response Not OK", response.code
       end

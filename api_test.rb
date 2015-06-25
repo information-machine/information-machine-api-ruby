@@ -118,7 +118,7 @@ def test_user_purchase products_controller, client_id, client_secret, store_id, 
         raise InformationMachineApi::APITestException.new "Error: get user products"
     end
 
-    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, page:1, per_page:15, purchase_date_before:nil, purchase_date_after:nil, purchase_total_less:nil, purchase_total_greater:nil, full_resp:true)["result"];
+    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, page:1, per_page:15, purchase_date_before:nil, purchase_date_after:nil, purchase_total_less:nil, purchase_total_greater:nil, purchase_total_from:nil, purchase_total_to:nil, purchase_total_less:nil, purchase_total_greater:nil, full_resp:true, food_only:nil, upc_only:nil)["result"];
     if (user_purchases.length == 0)
         raise InformationMachineApi::APITestException.new "Error: get all user purchases"
     end
