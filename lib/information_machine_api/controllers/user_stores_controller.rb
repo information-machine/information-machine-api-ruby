@@ -48,11 +48,11 @@ module InformationMachineApi
 
       # Error handling using HTTP status codes
       if response.code == 401
-        raise APIException.new "Unauthorized", 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
       elsif response.code == 404
-        raise APIException.new "Not Found", 404
+        raise APIException.new "Not Found", 404, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 
       response.body
@@ -91,19 +91,21 @@ module InformationMachineApi
       }
 
       # invoke the API call request to fetch the response
-      response = Unirest.post query_url, headers:headers, parameters:payload
+      response = Unirest.post query_url, headers:headers, parameters:payload.to_json
 
       # Error handling using HTTP status codes
       if response.code == 400
-        raise APIException.new "Bad request", 400
+        raise APIException.new "Bad request", 400, response.raw_body
       elsif response.code == 401
-        raise APIException.new "Unauthorized", 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
       elsif response.code == 404
-        raise APIException.new "Not Found", 404
+        raise APIException.new "Not Found", 404, response.raw_body
       elsif response.code == 500
-        raise APIException.new "Internal Server Error", 500
+        raise APIException.new "Internal Server Error", 500, response.raw_body
+      elsif response.code == 422
+        raise APIException.new "Unprocessable entity", 422, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 
       response.body
@@ -146,11 +148,11 @@ module InformationMachineApi
 
       # Error handling using HTTP status codes
       if response.code == 401
-        raise APIException.new "Unauthorized", 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
       elsif response.code == 404
-        raise APIException.new "Not Found", 404
+        raise APIException.new "Not Found", 404, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 
       response.body
@@ -191,17 +193,17 @@ module InformationMachineApi
       }
 
       # invoke the API call request to fetch the response
-      response = Unirest.put query_url, headers:headers, parameters:payload
+      response = Unirest.put query_url, headers:headers, parameters:payload.to_json
 
       # Error handling using HTTP status codes
       if response.code == 401
-        raise APIException.new "Unauthorized", 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
       elsif response.code == 404
-        raise APIException.new "Not Found", 404
+        raise APIException.new "Not Found", 404, response.raw_body
       elsif response.code == 500
-        raise APIException.new "Internal Server Error", 500
+        raise APIException.new "Internal Server Error", 500, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 
       response.body
@@ -244,11 +246,11 @@ module InformationMachineApi
 
       # Error handling using HTTP status codes
       if response.code == 401
-        raise APIException.new "Unauthorized", 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
       elsif response.code == 500
-        raise APIException.new "Internal Server Error", 500
+        raise APIException.new "Internal Server Error", 500, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
-        raise APIException.new "HTTP Response Not OK", response.code
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 
       response.body
