@@ -109,7 +109,7 @@ module InformationMachineApi
 
     # Get detailed information on a single user cart by specifying User ID and Cart ID. Cart items are included in response.
     # @param [String] user_id Required parameter: ID of a user
-    # @param [String] cart_id Required parameter: ID if a cart
+    # @param [String] cart_id Required parameter: ID of a cart
     # @return GetCartWrapper response from the API call
     def user_carts_get_cart user_id, cart_id
       # the base uri for api requests
@@ -158,7 +158,7 @@ module InformationMachineApi
 
     # Add item/product to a cart, must specify product UPC and Cart ID.
     # @param [String] user_id Required parameter: ID of a user
-    # @param [String] cart_id Required parameter: ID if a cart
+    # @param [String] cart_id Required parameter: ID of a cart
     # @param [AddCartItemRequest] payload Required parameter: TODO: type description here
     # @return AddCartItemWrapper response from the API call
     def user_carts_add_cart_item user_id, cart_id, payload
@@ -211,7 +211,7 @@ module InformationMachineApi
 
     # Use specified Cart ID to delete cart and all associated items in specified cart.
     # @param [String] user_id Required parameter: ID of a user
-    # @param [String] cart_id Required parameter: ID if a cart
+    # @param [String] cart_id Required parameter: ID of a cart
     # @return DeleteCartWrapper response from the API call
     def user_carts_delete_cart user_id, cart_id
       # the base uri for api requests
@@ -260,8 +260,8 @@ module InformationMachineApi
 
     # Remove item/product from a cart, must specify Cart and Cart Item ID.
     # @param [String] user_id Required parameter: ID of a user
-    # @param [String] cart_id Required parameter: ID if a cart
-    # @param [String] cart_item_id Required parameter: ID if a cart item
+    # @param [String] cart_id Required parameter: ID of a cart
+    # @param [String] cart_item_id Required parameter: ID of a cart item
     # @return DeleteCartItemWrapper response from the API call
     def user_carts_remove_cart_item user_id, cart_id, cart_item_id
       # the base uri for api requests
@@ -309,10 +309,10 @@ module InformationMachineApi
       response.body
     end
 
-    # TODO: type endpoint description here
+    # Currently, only Amazon cart is supported.
     # @param [String] user_id Required parameter: ID of a user
-    # @param [String] cart_id Required parameter: ID if a cart
-    # @param [Numeric] store_id Required parameter: ID if a store (check "Lookup" section, "v1/stores" endpoint)
+    # @param [String] cart_id Required parameter: ID of a cart
+    # @param [Numeric] store_id Required parameter: ID of a store (check "Lookup" section, "v1/stores" endpoint)
     # @return ExecuteCartWrapper response from the API call
     def user_carts_execute_cart user_id, cart_id, store_id
       # the base uri for api requests
