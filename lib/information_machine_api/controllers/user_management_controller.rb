@@ -15,7 +15,7 @@ module InformationMachineApi
     # @return GetAllUsersWrapper response from the API call
     def user_management_get_all_users page: nil, per_page: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/users"
@@ -57,7 +57,7 @@ module InformationMachineApi
     # @return CreateUserWrapper response from the API call
     def user_management_create_user payload
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/users"
@@ -79,7 +79,7 @@ module InformationMachineApi
       }
 
       # invoke the API call request to fetch the response
-      response = Unirest.post query_url, headers:headers, parameters:payload.to_json
+      response = Unirest.post query_url, headers:headers, parameters:payload
 
       # Error handling using HTTP status codes
       if response.code == 400
@@ -102,7 +102,7 @@ module InformationMachineApi
     # @return DeleteUserWrapper response from the API call
     def user_management_delete_user id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/users"
@@ -143,7 +143,7 @@ module InformationMachineApi
     # @return GetSingleUserWrapper response from the API call
     def user_management_get_single_user id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/users/{id}"

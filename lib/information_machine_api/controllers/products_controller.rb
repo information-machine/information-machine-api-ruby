@@ -19,7 +19,7 @@ module InformationMachineApi
     # @return GetProductsWrapper response from the API call
     def products_search_products name: nil, product_identifier: nil, page: nil, per_page: nil, request_data: nil, full_resp: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/products"
@@ -66,7 +66,7 @@ module InformationMachineApi
     # @return GetProductWrapper response from the API call
     def products_get_product product_id, full_resp: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/products/{product_id}"
@@ -114,7 +114,7 @@ module InformationMachineApi
     # @return GetProductPurchasesWrapper response from the API call
     def products_get_product_purchases product_id, page: nil, per_page: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/products/{product_id}/purchases"
@@ -161,7 +161,7 @@ module InformationMachineApi
     # @return GetProductPricesWrapper response from the API call
     def products_get_product_prices product_ids
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/products_prices"
@@ -203,7 +203,7 @@ module InformationMachineApi
     # @return GetProductsAlternativesWrapper response from the API call
     def products_get_products_alternatives product_ids, type_id: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/products_alternatives"
@@ -251,7 +251,7 @@ module InformationMachineApi
     # @return GetUserProducts response from the API call
     def products_get_user_products user_id, page: nil, per_page: nil, full_resp: nil, food_only: nil
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/users/{user_id}/products"
@@ -289,6 +289,88 @@ module InformationMachineApi
       elsif response.code == 401
         raise APIException.new "Unauthorized", 401, response.raw_body
       elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
+      end
+
+      response.body
+    end
+
+    # Request POST model is simple list of strings. Each list item can be submitted in two variations: name only OR name+store [use semicolon ';' as name and store separator].Use "result" property in response, received after successful request submission, to list resolving results (endpoint below... GET v1/products/upc_resolve_response/{request_id}). Webhook JSON model example: { "name":"UB RDY RICE WHL BROWN", "store":"", "resolve_status":"Finished", "upcs":"123456789012,123456789012" }
+    # @param [NameResolveRequest] payload Required parameter: TODO: type description here
+    # @param [String] webhook_url Optional parameter: URL we'll use to ping you as soon as product name is resolved to UPC. Please find POST body above.
+    # @return GetUPCsByNameRequestWrapper response from the API call
+    def products_submit_product_names_for_upc_resolve payload, webhook_url: nil
+      # the base uri for api requests
+      query_builder = Configuration.BASE_URI.dup
+
+      # prepare query string for API call
+      query_builder << "/v1/products/upc_resolve_request"
+
+      # process optional query parameters
+      query_builder = APIHelper.append_url_with_query_parameters query_builder, {
+        "webhook_url" => webhook_url,
+        "client_id" => @client_id,
+        "client_secret" => @client_secret,
+      }
+
+      # validate and preprocess url
+      query_url = APIHelper.clean_url query_builder
+
+      # prepare headers
+      headers = {
+        "user-agent" => "IAMDATA V1",
+        "accept" => "application/json",
+        "content-type" => "application/json; charset=utf-8"
+      }
+
+      # invoke the API call request to fetch the response
+      response = Unirest.post query_url, headers:headers, parameters:payload
+
+      # Error handling using HTTP status codes
+      if response.code == 401
+        raise APIException.new "Unauthorized", 401, response.raw_body
+      elsif !(response.code.between?(200,206)) # [200,206] = HTTP OK
+        raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
+      end
+
+      response.body
+    end
+
+    # Use request ID recevied in "v1/products/upc_resolve_request/" [request initiate].Response model has four properties: "name" - product name submitted for UPC resolve"store" - store submitted (in combination with name)"resolve_status" - "Queued" or "Finished""upcs" - list of UPCs that correspond to submitted name or name+store request
+    # @param [String] request_id Required parameter: TODO: type description here
+    # @return GetUPCsByNameResponseWrapper response from the API call
+    def products_get_upc_by_product_name_answer request_id
+      # the base uri for api requests
+      query_builder = Configuration.BASE_URI.dup
+
+      # prepare query string for API call
+      query_builder << "/v1/products/upc_resolve_response/{request_id}"
+
+      # process optional query parameters
+      query_builder = APIHelper.append_url_with_template_parameters query_builder, {
+        "request_id" => request_id,
+      }
+
+      # process optional query parameters
+      query_builder = APIHelper.append_url_with_query_parameters query_builder, {
+        "client_id" => @client_id,
+        "client_secret" => @client_secret,
+      }
+
+      # validate and preprocess url
+      query_url = APIHelper.clean_url query_builder
+
+      # prepare headers
+      headers = {
+        "user-agent" => "IAMDATA V1",
+        "accept" => "application/json"
+      }
+
+      # invoke the API call request to fetch the response
+      response = Unirest.get query_url, headers:headers
+
+      #Error handling using HTTP status codes
+      if !(response.code.between?(200,206)) # [200,206] = HTTP OK
         raise APIException.new "HTTP Response Not OK", response.code, response.raw_body
       end
 

@@ -8,7 +8,7 @@ def wait_for_scrape_to_finish user_stores_controller, user_identifier, store_id
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
         if (connected_store != nil and
-            connected_store["result"]["scrape_status"] == "Done")
+            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "Done With Warning"))
             return true;
         end
 
@@ -24,10 +24,11 @@ def check_store_validity user_stores_controller, user_identifier, store_id
     for i in 0..15
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
-        if (connected_store != nil)
+        if (connected_store != nil and
+            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "Done With Warning" or connected_store["result"]["scrape_status"] == "Scraping"))
             if(connected_store["result"]["credentials_status"] == "Verified")
                 return true;
-            elsif(connected_store["result"]["credentials_status"] == "Invalid")
+            else
                 return false;
             end
         end
@@ -98,12 +99,6 @@ def test_user_purchase products_controller, client_id, client_secret, store_id, 
         raise InformationMachineApi::APITestException.new "Error: could not connect to store"
     end
 
-    update_user_store_request = InformationMachineApi::UpdateUserStoreRequest.new()
-    update_user_store_request.username = username
-    update_user_store_request.password = password
-
-    user_stores_controller.user_stores_update_store_connection(update_user_store_request.to_json, user_id, user_store["id"]);
-
     if (!wait_for_scrape_to_finish(user_stores_controller, user_id, user_store["id"]))
         raise InformationMachineApi::APITestException.new "Error: scrape is not finished"
     end
@@ -123,7 +118,13 @@ def test_user_purchase products_controller, client_id, client_secret, store_id, 
     if (user_purchases.length == 0)
         raise InformationMachineApi::APITestException.new "Error: get all user purchases"
     end
+    
+    purchase_history = user_purchases_controller.user_purchases_get_purchase_history_unified(user_id, store_id:nil, food_only:nil, upc_only:nil, show_product_details:nil, receipts_only:nil, upc_resolved_after:nil)["result"];
 
+    if (purchase_history.length == 0)
+        raise InformationMachineApi::APITestException.new "Error: get purchase history"
+    end
+    
     user_purchase = user_purchases_controller.user_purchases_get_single_user_purchase(user_id, user_purchases[0]["id"], full_resp:true)["result"];
     if (user_purchase == nil or user_purchase["id"] != user_purchases[0]["id"])
         raise InformationMachineApi::APITestException.new "Error: get single user purchases"
@@ -242,6 +243,11 @@ begin
     test_user_purchase(products_controller, client_id, client_secret, store_id, username, password);
     
     puts "All tests passed"
+rescue InformationMachineApi::APIException => ex
+    puts ex
+    puts ex.response_code
+    puts ex.response_body
+    puts ex.backtrace
 rescue Exception => ex
     puts ex
     puts ex.backtrace

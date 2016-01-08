@@ -46,20 +46,15 @@ module InformationMachineApi
         abort('no parameters to append')
       end
 
+      #remove any nil values
+      parameters = parameters.reject {|key, value| value.nil?}
+
       # does the query string already has parameters
       has_params = query_builder.include? '?'
       separator = if has_params then '&' else '?' end
 
       # append query with separator and parameters
-	  query = ""
-      parameters.each{|k,v|
-        if(v != nil)
-            query+=k.to_s + "=" + CGI::escape(v.to_s)+"&"
-        end
-      }
-      
-      query.slice!(query.length-1, 1)
-      query_builder << separator << query
+      query_builder << separator << URI.unescape(URI.encode_www_form(parameters))
     end
     
     # Validates and processes the given Url

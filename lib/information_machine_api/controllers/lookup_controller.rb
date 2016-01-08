@@ -13,7 +13,7 @@ module InformationMachineApi
     # @return GetProductAlternativeTypesWrapper response from the API call
     def lookup_get_product_alternative_types
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/product_alternative_types"
@@ -52,7 +52,7 @@ module InformationMachineApi
     # @return GetUOMsWrapper response from the API call
     def lookup_get_uo_ms
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/units_of_measurement"
@@ -91,7 +91,7 @@ module InformationMachineApi
     # @return GetCategoriesWrapper response from the API call
     def lookup_get_categories
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/categories"
@@ -130,7 +130,7 @@ module InformationMachineApi
     # @return GetNutrientsWrapper response from the API call
     def lookup_get_nutrients
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/nutrients"
@@ -169,7 +169,7 @@ module InformationMachineApi
     # @return GetStoresWrapper response from the API call
     def lookup_get_stores
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/stores"
@@ -208,7 +208,7 @@ module InformationMachineApi
     # @return GetTagsWrapper response from the API call
     def lookup_get_tags
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/v1/tags"

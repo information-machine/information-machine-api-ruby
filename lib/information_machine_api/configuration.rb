@@ -4,7 +4,7 @@ module InformationMachineApi
   class Configuration
 
     # The base Uri for API calls
-    BASE_URI = "https://api.iamdata.co"
+    @BASE_URI = "https://api.iamdata.co"
 
     # Id of your app
     @client_id = "TODO: Replace"
@@ -15,6 +15,8 @@ module InformationMachineApi
 
     # create the getters and setters
     class << self
+      attr_accessor :BASE_URI
+
     end
   end
 end

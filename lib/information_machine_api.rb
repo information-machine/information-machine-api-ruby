@@ -18,10 +18,12 @@ require_relative 'information_machine_api/controllers/user_scans_controller.rb'
 require_relative 'information_machine_api/controllers/user_stores_controller.rb'
 
 # Models
+require_relative 'information_machine_api/models/name_resolve_request.rb'
 require_relative 'information_machine_api/models/add_cart_request.rb'
 require_relative 'information_machine_api/models/add_cart_item_request.rb'
 require_relative 'information_machine_api/models/register_user_request.rb'
-require_relative 'information_machine_api/models/upload_barcode_request.rb'
 require_relative 'information_machine_api/models/upload_receipt_request.rb'
+require_relative 'information_machine_api/models/upload_barcode_request.rb'
 require_relative 'information_machine_api/models/connect_user_store_request.rb'
+require_relative 'information_machine_api/models/connect_o_auth_user_store_request.rb'
 require_relative 'information_machine_api/models/update_user_store_request.rb'

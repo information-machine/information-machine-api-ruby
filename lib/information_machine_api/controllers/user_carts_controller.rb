@@ -14,7 +14,7 @@ module InformationMachineApi
     # @return GetCartsWrapper response from the API call
     def user_carts_get_carts user_id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts"
@@ -62,7 +62,7 @@ module InformationMachineApi
     # @return AddCartWrapper response from the API call
     def user_carts_create_cart user_id, payload
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts"
@@ -89,7 +89,7 @@ module InformationMachineApi
       }
 
       # invoke the API call request to fetch the response
-      response = Unirest.post query_url, headers:headers, parameters:payload.to_json
+      response = Unirest.post query_url, headers:headers, parameters:payload
 
       # Error handling using HTTP status codes
       if response.code == 400
@@ -113,7 +113,7 @@ module InformationMachineApi
     # @return GetCartWrapper response from the API call
     def user_carts_get_cart user_id, cart_id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts/{cart_id}"
@@ -163,7 +163,7 @@ module InformationMachineApi
     # @return AddCartItemWrapper response from the API call
     def user_carts_add_cart_item user_id, cart_id, payload
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts/{cart_id}"
@@ -191,7 +191,7 @@ module InformationMachineApi
       }
 
       # invoke the API call request to fetch the response
-      response = Unirest.post query_url, headers:headers, parameters:payload.to_json
+      response = Unirest.post query_url, headers:headers, parameters:payload
 
       # Error handling using HTTP status codes
       if response.code == 400
@@ -215,7 +215,7 @@ module InformationMachineApi
     # @return DeleteCartWrapper response from the API call
     def user_carts_delete_cart user_id, cart_id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts/{cart_id}"
@@ -265,7 +265,7 @@ module InformationMachineApi
     # @return DeleteCartItemWrapper response from the API call
     def user_carts_remove_cart_item user_id, cart_id, cart_item_id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts/{cart_id}/items/{cart_item_id}"
@@ -316,7 +316,7 @@ module InformationMachineApi
     # @return ExecuteCartWrapper response from the API call
     def user_carts_execute_cart user_id, cart_id, store_id
       # the base uri for api requests
-      query_builder = Configuration::BASE_URI.dup
+      query_builder = Configuration.BASE_URI.dup
 
       # prepare query string for API call
       query_builder << "/users/{user_id}/carts/{cart_id}/stores/{store_id}"
