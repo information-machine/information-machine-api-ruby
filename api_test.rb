@@ -8,7 +8,7 @@ def wait_for_scrape_to_finish user_stores_controller, user_identifier, store_id
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
         if (connected_store != nil and
-            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "Done With Warning"))
+            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "DoneWithWarning"))
             return true;
         end
 
@@ -25,7 +25,7 @@ def check_store_validity user_stores_controller, user_identifier, store_id
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
         if (connected_store != nil and
-            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "Done With Warning" or connected_store["result"]["scrape_status"] == "Scraping"))
+            (connected_store["result"]["scrape_status"] == "Done" or connected_store["result"]["scrape_status"] == "DoneWithWarning" or connected_store["result"]["scrape_status"] == "Scraping"))
             if(connected_store["result"]["credentials_status"] == "Verified")
                 return true;
             else
